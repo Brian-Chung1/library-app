@@ -1,0 +1,176 @@
+
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #282c34;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+
+}
+
+#title {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    color: #61dafb;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 50px;
+    margin-top: 40px;
+}
+
+.book-list {
+    display: flex;
+    padding: 3rem;
+    /* overflow-x: scroll; */ /* <-- This creates a useable scrollbar - must make container full window size so that scrollbar is at bottom */ 
+    
+
+
+}
+
+.book {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: 350px;
+    width: 250px;
+    min-width: 200px;
+    padding: 1.5rem;
+
+    border-radius: 16px;
+    background: #282c34;
+    box-shadow: -1rem 0 3rem #000;
+
+    transition: .2s;
+}
+
+.book:hover {
+    transform: translateY(-1rem);
+}
+
+.book:hover~.book {
+    transform: translateX(130px);
+}
+
+.book:not(:first-child) {
+    margin-left: -130px;
+}
+
+.card-header h2:hover {
+    background: linear-gradient(90deg,#ff8a00,#e52e71);
+    text-shadow: none;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;    
+}
+
+#addbook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#plus {
+    font-size: 70px;
+    font-weight: bold;
+    
+}
+
+#addbook {
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;  /* if user scrolls up and down modal is going to be centered */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: #282c34;
+    width: 500px;
+    max-width: 80%;
+    height: 300px;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-header .close-btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25 rem;
+    font-weight: bold;
+    color: white;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 10px 15px;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    transition: 200ms ease-in-out;
+
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.save {
+    display:flex;
+    justify-content: center;
+}
+
+label {
+    padding: 5px;
+}
+
+/* Scrollbar CSS only works on Chrome*/
+.book-list::-webkit-scrollbar { 
+    width: 10px;
+    height: 10px;
+}
+
+.book-list::-webkit-scrollbar-thumb {
+    background: #201c29;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+}
+
+.book-list::-webkit-scrollbar-track {
+    background: linear-gradient(90deg, #201c29, #201c29 1px, #17141d 0, #17141d);
+}
+
