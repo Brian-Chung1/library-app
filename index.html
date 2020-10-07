@@ -10,17 +10,13 @@
     <body>
         <div id="title">My Library</div>
         <section class="book-list">
-            <article class="book">
-                <header class="card-header">
-                    <p>Example Book</p>
-                    <h2>By Author</h2>
-                </header>
-            </article>
 
             <article class="book">
                 <header class="card-header">
-                    <p>Example Book</p>
+                    <h1 class="book-title">Example Book</h1>
                     <h2>By Author</h2>
+                    <h4>Page Count: </h4>
+                    <h4>Finished Reading </h4>
                 </header>
             </article>
 
@@ -43,11 +39,16 @@
                 <label for="pages">Pages: </label>
                 <input type="text" name="pages">
                 <label for="read">Read: </label>
-                <input type="checkbox" name="read">
+                <div class="dropdown">
+                    <button id="select">Select</button>
+                    <div id="yes">Yes</div>
+                    <div id="no">No</div>
+                </div>
                 <div class="save">Save</div>
             </div>
         </div>
         <div id="overlay"></div>
+
 
 
         <script src="app.js"></script>

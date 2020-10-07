@@ -20,12 +20,15 @@ body {
     margin-top: 40px;
 }
 
+.book-title {
+    font-size: 30px;
+}
+
 .book-list {
     display: flex;
     padding: 3rem;
+    justify-content: center;
     /* overflow-x: scroll; */ /* <-- This creates a useable scrollbar - must make container full window size so that scrollbar is at bottom */ 
-    
-
 
 }
 
@@ -92,9 +95,9 @@ body {
     border-radius: 10px;
     z-index: 10;
     background-color: #282c34;
-    width: 500px;
+    width: 450px;
     max-width: 80%;
-    height: 300px;
+    height: 360px;
 }
 
 .modal.active {
@@ -151,12 +154,77 @@ body {
 
 .save {
     display:flex;
+    cursor: pointer;
+    border: 1px solid white;
+    width: 70px;
+    border-radius: 5px;
+    height: 22px;
+    font-size: 17px;
     justify-content: center;
+    align-content: center;
+    align-self: center;
+    margin-top: 20px;
+    position: absolute;
+    margin-top: 260px;
+
 }
 
 label {
-    padding: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown button {
+    text-decoration: none;
+    border: none;
+    height: 22px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.dropdown div {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    color: #282c34;
+    background-color: white;
+    width: 414px;
+    height: 25px;
+    margin-left: 3px;
+    border-radius: 5px;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.4s ease;
+    
+
+}
+
+.dropdown button:focus ~ div {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0px);
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.dropdown div:hover, .dropdown button:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+
+
 
 /* Scrollbar CSS only works on Chrome*/
 .book-list::-webkit-scrollbar { 
