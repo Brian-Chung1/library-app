@@ -1,2 +1,7 @@
 To Do
-firebase or local storage
+edit button functionality
+trash button functionality
+
+store data in firebase or local storage
+Add Google Books API
+
