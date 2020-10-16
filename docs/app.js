@@ -300,20 +300,21 @@ function fetchAPI(searchTerms) {
     .then(response => response.json())
     .then(data => {
         for(let i = 0; i < data.items.length; i++) {
-            if(data.items[i].volumeInfo.title.length > 110) i++;
+            if(data.items[i].volumeInfo.title.length > 110) continue;
             if(data.items[i].volumeInfo.authors == void(0) || typeof data.items[i].volumeInfo.authors == 'undefined') author = "Unknown";
             else author = data.items[i].volumeInfo.authors[0];
             createSearchResultElements(data.items[i].volumeInfo.title, author, data.items[i].volumeInfo.pageCount)
         }
     })
     .catch(error => {
-        const container = document.querySelector("search-result");
+        let container = document.querySelector(".search-result");
         let errorAlert = document.createElement("div");
         errorAlert.classList.add("error");
         errorAlert.textContent = "Error: Could not find results or Faulty Internet"
         container.appendChild(errorAlert);
     }) 
 }
+
 
 function clearResults() {
     const parent = document.querySelector(".search-result");
