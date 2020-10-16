@@ -323,34 +323,6 @@ function clearResults() {
     }
 }
 
-//creates html for the search results
-function createSearchResultElements(title, author, pages) {
-
-    const searchResultContainer = document.querySelector(".search-result");
-    const bookElement = document.createElement("div");
-    bookElement.classList.add("result-book");
-
-    bookElement.innerHTML = `
-        <label for="searchTitle">Title:</label>
-        <div id="search-title">${title}</div>
-        <label for="searchAuthor">Author: </label>
-        <div id="search-author">${author}</div>
-        <label for="searchPages">Pages: </label>
-        <div id="search-pages">${pages}</div>
-    `;
-
-//  <button id="add-search">+ Add Book</button>
-    //create add button and add event listener
-    let addButton = document.createElement("button");
-    addButton.classList.add("add-search");
-    addButton.textContent = "+ Add Book";
-    bookElement.appendChild(addButton);
-    addButton.addEventListener("click", addSearchedBook(bookElement));
-    searchResultContainer.appendChild(bookElement);
-
-    
-}
-
 
 function createSearchResultElements(title, author, pages) {
 
