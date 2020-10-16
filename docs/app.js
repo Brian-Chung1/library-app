@@ -296,13 +296,14 @@ function fetchAPI(searchTerms) {
     // let apikey = process.env.API_KEY;
     let apikey = "AIzaSyDTjHJ2lawtrtUHAENuwQ6QSszXe7Di1Os";
     let author = "";
+    let pages = "";
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&maxResults=15`)
     .then(response => response.json())
     .then(data => {
         for(let i = 0; i < data.items.length; i++) {
             if(data.items[i].volumeInfo.title.length > 110) continue;
-            if(data.items[i].volumeInfo.authors == void(0) || typeof data.items[i].volumeInfo.authors == 'undefined') author = "Unknown";
-            else author = data.items[i].volumeInfo.authors[0];
+            author = (data.items[i].volumeInfo.authors == void(0) || typeof data.items[i].volumeInfo.authors == 'undefined') ? "Unknown" : data.items[i].volumeInfo.authors[0];
+            pages = (data.items[i].volumeInfo.pageCount == void(0) || typeof data.items[i].volumeInfo.pageCount == 'undefined') ? "" : data.items[i].volumeInfo.pageCount;
             createSearchResultElements(data.items[i].volumeInfo.title, author, data.items[i].volumeInfo.pageCount)
         }
     })
