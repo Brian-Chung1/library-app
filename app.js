@@ -38,11 +38,21 @@ class Storage {
         localStorage.setItem("library", JSON.stringify(library));
     }
 
-    static removeBook(id) {
+    static removeBook(title) {
         const library = Storage.getLib();
         library.forEach((book, index) => {
-            if(book.id === id) {
+            if(book.title === title) {
                 library.splice(index, 1);
+            }
+        });
+        localStorage.setItem("library", JSON.stringify(library));
+    }
+
+    static updateBook(oldTitle, newBook) {
+        const library = Storage.getLib();
+        library.forEach((book, index) => {
+            if(book.title === oldTitle) {
+                library.splice(index, 1, newBook);
             }
         });
         localStorage.setItem("library", JSON.stringify(library));
@@ -50,11 +60,6 @@ class Storage {
 }
 
 
-const library = Storage.getLib();
-
-function addBookToLibrary(newBook) {
-    library.push(newBook);
-}
 
 function formatAuthor(author) {
     let formattedAuthor = "";
@@ -127,45 +132,61 @@ function createBookElement(book) {
     // Adding Delete and Edit Button EventListeners
     deleteElement.addEventListener("click", () => {
         booklist.removeChild(BookElement);
+        Storage.removeBook(bookTitleElement.textContent);
         showAlert("Removed Book ❌");
     }) 
 
     editElement.addEventListener("click", () => {
         //the input boxes in the modal form are filled with current book information
-        openCurrentModal();
+        openEditModal();
         title.value = bookTitleElement.textContent;
         author.value = bookAuthorElement.textContent.slice(3);
         pages.value = bookPageElement.textContent.slice(12);
-        if(bookReadStatusElement == "") selectButton.textContent = "Select";
+        if(bookReadStatusElement.textContent === "") selectButton.textContent = "Select";
         else selectButton.textContent = bookReadStatusElement.textContent;
         currentBookElement = BookElement;
     }) 
 
 }
 
-function updateBook(currentBookElement) {
-    currentBookElement.children[0].children[0].textContent = title.value;
-    currentBookElement.children[0].children[1].textContent = formatAuthor(author.value);
-    currentBookElement.children[0].children[2].textContent = formatPages(pages.value);
-    currentBookElement.children[0].children[3].textContent = selectButton.textContent;
+//update the book html element
+function updateBookElement(currentBookElement, updatedBook) {
+    currentBookElement.children[0].children[0].textContent = updatedBook.title;
+    currentBookElement.children[0].children[1].textContent = formatAuthor(updatedBook.author);
+    currentBookElement.children[0].children[2].textContent = formatPages(updatedBook.pages);
+    currentBookElement.children[0].children[3].textContent = updatedBook.read;
+}
 
-
+//create the new updated book 
+function getUpdatedBook() {
+    let readstatus = selectButton.textContent;
+    if(readstatus == "Select") readstatus = "";
+    let updated = new Book(
+        title.value,
+        author.value,
+        pages.value,
+        readstatus
+    );
+    return updated;
 }
 
 saveButton.addEventListener("click", () => {
     
     if(title.value == "") {
         alert("Please enter a book title");
-    } else if(currentBookElement !== null) {
-        updateBook(currentBookElement);
+    } else if(currentBookElement !== null) { //editting a book
+        let oldBookTitle = currentBookElement.children[0].children[0].textContent;
+        let updatedBook = getUpdatedBook(); 
+        updateBookElement(currentBookElement, updatedBook); 
+        Storage.updateBook(oldBookTitle, updatedBook); 
         closeCurrentModal();
         showAlert("Updated book 🔄");
-    } else {
+    } else { //adding a new book
         let readingStatus;
         if(selectButton.textContent == "Select") readingStatus = "";
         else readingStatus = selectButton.textContent;
         let newBook = new Book(title.value, author.value, pages.value, readingStatus);
-        addBookToLibrary(newBook);
+        Storage.addBook(newBook);
         createBookElement(newBook);
         closeCurrentModal();
         showAlert("Added book ✅");
@@ -174,6 +195,10 @@ saveButton.addEventListener("click", () => {
     
 })
 
+function displayBooks() {
+    const library = Storage.getLib();
+    library.forEach(book => createBookElement(book));
+}
 
 
 //Modal 
@@ -192,7 +217,6 @@ function closeModal(modal) {
     modal.classList.remove("active");
     overlay.classList.remove("active");
     resetForm();
-    currentBookElement = null;
 }
 
 openModalButtons.forEach(button => {
@@ -223,10 +247,12 @@ function closeCurrentModal() {
     });
 }
 
-function openCurrentModal() {
+function openEditModal() {
     const modals = document.querySelectorAll(".modal");
     modals.forEach(modal => {
-        openModal(modal);
+        if(modal.id == "modal") {
+            openModal(modal);
+        } 
     });
 }
 
@@ -234,7 +260,10 @@ function resetForm() {
     title.value = "";
     author.value = "";
     pages.value = "";
+    document.querySelector("input[name='searchbar']").value = "";
     selectButton.textContent = "Select";
+    clearResults();
+    currentBookElement = null;
 }
 
 function showAlert(message) {
@@ -248,5 +277,117 @@ function showAlert(message) {
     // Vanish in 3 seconds
     setTimeout(() => document.querySelector('.alert').remove(), 3000);
   }
+
+
+  document.addEventListener('DOMContentLoaded', displayBooks());
+
+const searchBar = document.querySelector("input[name='searchbar']");
+const searchButton = document.querySelector("#search-button");
+
+searchButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    clearResults();
+    const searchTerms = searchBar.value;
+    if(searchTerms == "") return;
+    fetchAPI(searchTerms);
+});
+
+function fetchAPI(searchTerms) {
+    let apikey = process.env.API_KEY;
+    let author = "";
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&maxResults=15`)
+    .then(response => response.json())
+    .then(data => {
+        for(let i = 0; i < data.items.length; i++) {
+            if(data.items[i].volumeInfo.title.length > 110) i++;
+            if(data.items[i].volumeInfo.authors == void(0) || typeof data.items[i].volumeInfo.authors == 'undefined') author = "Unknown";
+            else author = data.items[i].volumeInfo.authors[0];
+            createSearchResultElements(data.items[i].volumeInfo.title, author, data.items[i].volumeInfo.pageCount)
+        }
+    })
+    .catch(error => {
+        const container = document.querySelector("search-result");
+        let errorAlert = document.createElement("div");
+        errorAlert.classList.add("error");
+        errorAlert.textContent = "Error: Could not find results or Faulty Internet"
+        container.appendChild(errorAlert);
+    }) 
+}
+
+function clearResults() {
+    const parent = document.querySelector(".search-result");
+    let child = parent.lastElementChild;
+    while(child) {
+        parent.removeChild(child);
+        child = parent.lastElementChild;
+    }
+}
+
+//creates html for the search results
+function createSearchResultElements(title, author, pages) {
+
+    const searchResultContainer = document.querySelector(".search-result");
+    const bookElement = document.createElement("div");
+    bookElement.classList.add("result-book");
+
+    bookElement.innerHTML = `
+        <label for="searchTitle">Title:</label>
+        <div id="search-title">${title}</div>
+        <label for="searchAuthor">Author: </label>
+        <div id="search-author">${author}</div>
+        <label for="searchPages">Pages: </label>
+        <div id="search-pages">${pages}</div>
+    `;
+
+//  <button id="add-search">+ Add Book</button>
+    //create add button and add event listener
+    let addButton = document.createElement("button");
+    addButton.classList.add("add-search");
+    addButton.textContent = "+ Add Book";
+    bookElement.appendChild(addButton);
+    addButton.addEventListener("click", addSearchedBook(bookElement));
+    searchResultContainer.appendChild(bookElement);
+
+    
+}
+
+
+function createSearchResultElements(title, author, pages) {
+
+    const searchResultContainer = document.querySelector(".search-result");
+    const bookElement = document.createElement("div");
+    bookElement.classList.add("result-book");
+
+    bookElement.innerHTML = `
+        <label for="searchTitle">Title:</label>
+        <div id="search-title">${title}</div>
+        <label for="searchAuthor">Author: </label>
+        <div id="search-author">${author}</div>
+        <label for="searchPages">Pages: </label>
+        <div id="search-pages">${pages}</div>
+    `;
+
+//  <button id="add-search">+ Add Book</button>
+    //create add button and add event listener
+    let addButton = document.createElement("button");
+    addButton.classList.add("add-search");
+    addButton.textContent = "+ Add Book";
+    bookElement.appendChild(addButton);
+    addButton.addEventListener("click", () => {
+        const title = bookElement.children[1].textContent;
+        const author = bookElement.children[3].textContent;
+        const pages = bookElement.children[5].textContent;
+        let b = new Book(title, author, pages, "");
+        Storage.addBook(b);
+        createBookElement(b);
+        showAlert("Added book ✅");
+    });
+
+    searchResultContainer.appendChild(bookElement);
+
+    
+}
+
+
 
 

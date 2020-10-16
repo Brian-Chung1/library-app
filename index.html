@@ -11,7 +11,8 @@
         <div id="title">My Library</div>
         <section class="book-list">
 
-            <article class="book">
+            <!-- Example Book Element -->
+            <!-- <article class="book">
                 <header class="card-header">
                     <h1 class="book-title">Example Book</h1>
                     <h2 id="author">By Author</h2>
@@ -20,10 +21,14 @@
                     <img src="images/trash-alt-solid.png" class="delete" alt="delete icon">
                     <img src="images/edit-regular.png" class="edit" data-modal-target="#modal" alt="edit icon">
                 </header>
-            </article>
+            </article> -->
 
             <article data-modal-target="#modal" class="book" id="addbook">
                 <div id="plus">+</div>
+            </article>
+
+            <article data-modal-target="#search-modal" class="book" id="searchbook">
+                <div id="search">🔎</div>
             </article>
 
         </section>
@@ -47,10 +52,29 @@
                     <div class="hidden">Finished Reading</div>
                     <div class="hidden">Currently Reading</div>
                 </div>
+
                 <div class="save zindex">Save</div>
             </div>
         </div>
         <div id="overlay"></div>
+
+        <div class="modal search-modal-container" id="search-modal">
+            <div class="modal-header">
+                <div class="title">Book Search</div>
+                <button data-modal-close class="close-btn">&times;</button>
+            </div>
+            <div class="search-modal-body">
+                <label for="booksearch">Enter Book Title or Author: </label>
+                <div class="search-bar-container">
+                    <input type="text" name="searchbar">
+                    <button id="search-button">Search</button>
+                </div>
+                
+                <div class="search-result">
+                </div>
+            </div>
+        </div>
+
 
 
 

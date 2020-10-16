@@ -21,6 +21,9 @@ body {
     color: white;
     font-family: 'Montserrat', sans-serif;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
 }
 
@@ -35,7 +38,7 @@ body {
 }
 
 .book-title {
-    font-size: 30px;
+    font-size: 23px;
 }
 
 .book-list {
@@ -92,8 +95,9 @@ body {
 #plus {
     font-size: 70px;
     font-weight: bold;
-    
 }
+
+
 
 #addbook {
     cursor: pointer;
@@ -109,9 +113,9 @@ body {
     border-radius: 10px;
     z-index: 10;
     background-color: #282c34;
-    width: 450px;
+    width: 470px;
     max-width: 80%;
-    height: 360px;
+    height: 410px;
 }
 
 .modal.active {
@@ -170,15 +174,16 @@ body {
     display:flex;
     cursor: pointer;
     border: 1px solid white;
-    width: 70px;
+    width: 90px;
     border-radius: 5px;
-    height: 22px;
+    height: 26px;
     font-size: 17px;
     justify-content: center;
     align-content: center;
     align-self: center;
+    align-items: center;
     position: relative;
-    bottom: 20px;
+    bottom: 38px;
     cursor: pointer;
 }
 
@@ -192,16 +197,19 @@ label {
     flex-direction: column;
     position: relative;
     z-index: 100;
+    justify-content: center;
+    align-items: center;
 
 }
 
 #select {
     text-decoration: none;
     border: none;
-    height: 22px;
+    height: 29px;
     margin-bottom: 0px;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
+    border-radius: 6px;
 }
 
 .dropdown div {
@@ -212,24 +220,31 @@ label {
     align-items: center;
     list-style: none;
     color: #282c34;
-    background-color: white;
-    width: 414px;
-    height: 25px;
-    margin-left: 3px;
+    background-color: #DCDCDC;
+    width: 440px;
+    height: 27px;
     border-radius: 5px;
     transition: all 0.4s ease;
+    
+    box-shadow: 0 8px 6px -6px #ffffff42;
+    border-bottom: 1px solid #80808036;
 
 }
 
 
+#select:hover {
+    background-color: #D3D3D3;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
 
 .dropdown div:hover, .dropdown button:hover {
-    background-color: lightgray;
+    font-weight: bold;
+    font-size: 17px;
+    background-color: #C8C8C8;
     cursor: pointer;
+    transition: all 0.1s ease-in-out;
 }
-
-
-
 
 
 .delete {
@@ -272,10 +287,119 @@ label {
     justify-content: center;
     align-items: center;
     position: relative;
-    left: 43%;
+    left: 42.8%;
     width: 280px;
     height: 40px;
     color: white;
     font-size: 20px;
 }
 
+input {
+    height: 23px;
+    border-radius: 6px;
+    margin-bottom: 7px;
+}
+
+#searchbook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+#search {
+    font-size: 70px;
+    font-weight: bold;
+}
+
+#search-button {
+    text-decoration: none;
+    border: none;
+    height: 29px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 6px;
+    width: 134px;
+    
+}
+
+#search-button:hover, #add-search:hover {
+    background-color: #C8C8C8;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.search-modal-body {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 10px 15px;
+    justify-content: center;
+}
+
+.search-modal-container {
+    position: fixed;  /* if user scrolls up and down modal is going to be centered */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: #282c34;
+    width: 600px;
+    max-width: 80%;
+    height: 600px;
+
+}
+
+.add-search {
+    border: none;
+    height: 29px;
+    cursor: pointer;
+    border-radius: 6px;
+    width: 100px;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    grid-column-start: 3;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    
+}
+
+.search-result {
+    border: 1px solid white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 435px;
+}
+
+input[name="searchbar"] {
+    width: 425px;
+}
+
+.result-book {
+    display: grid;
+    grid-template-columns: 70px 1fr 100px;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: left;
+    align-items: center;
+    border-bottom: 2px solid #61dafb;
+    padding: 10px;
+}
+
+
+.search-bar-container {
+    padding-bottom: 4px;
+}
+
+.error {
+    color: red;
+    font-size: 25px;
+}

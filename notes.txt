@@ -1,6 +1,6 @@
 To Do
-
-
-store data in firebase or local storage
 Add Google Books API
+Center alerts
+Make it viewport compatible with phones
+hide api key
 
