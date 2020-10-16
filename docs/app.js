@@ -293,7 +293,8 @@ searchButton.addEventListener("click", (e) => {
 });
 
 function fetchAPI(searchTerms) {
-    let apikey = process.env.API_KEY;
+    // let apikey = process.env.API_KEY;
+    let apikey = "AIzaSyDTjHJ2lawtrtUHAENuwQ6QSszXe7Di1Os";
     let author = "";
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&maxResults=15`)
     .then(response => response.json())

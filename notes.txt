@@ -1,6 +1,0 @@
-To Do
-Add Google Books API
-Center alerts
-Make it viewport compatible with phones
-hide api key
-
