@@ -1,3 +1,4 @@
+
 const booklist = document.querySelector(".book-list");
 const addbookButton = document.querySelector("#addbook");
 let currentBookElement = null;
@@ -279,7 +280,7 @@ function showAlert(message) {
   }
 
 
-  document.addEventListener('DOMContentLoaded', displayBooks());
+
 
 const searchBar = document.querySelector("input[name='searchbar']");
 const searchButton = document.querySelector("#search-button");
@@ -292,28 +293,24 @@ searchButton.addEventListener("click", (e) => {
     fetchAPI(searchTerms);
 });
 
-function fetchAPI(searchTerms) {
-    // let apikey = process.env.API_KEY;
+async function fetchAPI(searchTerms) {
     let apikey = "AIzaSyDTjHJ2lawtrtUHAENuwQ6QSszXe7Di1Os";
-    let author = "";
-    let pages = "";
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&maxResults=15`)
-    .then(response => response.json())
-    .then(data => {
-        for(let i = 0; i < data.items.length; i++) {
-            if(data.items[i].volumeInfo.title.length > 110) continue;
-            author = (data.items[i].volumeInfo.authors == void(0) || typeof data.items[i].volumeInfo.authors == 'undefined') ? "Unknown" : data.items[i].volumeInfo.authors[0];
-            pages = (data.items[i].volumeInfo.pageCount == void(0) || typeof data.items[i].volumeInfo.pageCount == 'undefined') ? "" : data.items[i].volumeInfo.pageCount;
-            createSearchResultElements(data.items[i].volumeInfo.title, author, data.items[i].volumeInfo.pageCount)
-        }
-    })
-    .catch(error => {
+    let response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&maxResults=15`);
+    if(!response.ok) {
         let container = document.querySelector(".search-result");
         let errorAlert = document.createElement("div");
         errorAlert.classList.add("error");
-        errorAlert.textContent = "Error: Could not find results or Faulty Internet"
+        errorAlert.textContent = `Error ${response.status}: Could not find results or Faulty Internet`;
         container.appendChild(errorAlert);
-    }) 
+    }
+    let data = await response.json();
+
+    for(let i = 0; i < data.items.length; i++) {
+        if(data.items[i].volumeInfo.title.length > 110) continue;
+        let author = (data.items[i].volumeInfo.authors == void(0) || typeof data.items[i].volumeInfo.authors == 'undefined') ? "Unknown" : data.items[i].volumeInfo.authors[0];
+        let pages = (data.items[i].volumeInfo.pageCount == void(0) || typeof data.items[i].volumeInfo.pageCount == 'undefined') ? "" : data.items[i].volumeInfo.pageCount;
+        createSearchResultElements(data.items[i].volumeInfo.title, author, data.items[i].volumeInfo.pageCount)
+    }
 }
 
 
@@ -363,6 +360,16 @@ function createSearchResultElements(title, author, pages) {
     
 }
 
+function displayInfo() {
+    let info = document.querySelector("#info-modal");
+    info.classList.add("active");
+    let infoButton = document.querySelector("#info-button");
+    infoButton.addEventListener("click", () => {
+        info.classList.add("active");
+    })
+}
 
-
-
+document.addEventListener('DOMContentLoaded', () => {
+    displayBooks();
+    displayInfo();
+});
