@@ -29,12 +29,17 @@ body {
 
 #title {
     display: flex;
-    flex-flow: column;
+    justify-content: center;
     align-items: center;
     color: #61dafb;
     font-family: 'Montserrat', sans-serif;
     font-size: 50px;
     margin-top: 40px;
+}
+
+#title > #info-button {
+    font-size: 25px;
+    cursor: pointer;
 }
 
 .book-title {
@@ -352,9 +357,7 @@ input {
     z-index: 10;
     background-color: #282c34;
     width: 600px;
-    max-width: 80%;
     height: 600px;
-
 }
 
 .add-search {
@@ -383,7 +386,7 @@ input {
 }
 
 input[name="searchbar"] {
-    width: 425px;
+    width: 423px;
 }
 
 .result-book {
@@ -399,9 +402,26 @@ input[name="searchbar"] {
 
 .search-bar-container {
     padding-bottom: 4px;
+    width: 570px;
+    
 }
 
 .error {
     color: red;
     font-size: 25px;
 }
+
+#info-modal {
+    width: 700px;
+}
+
+#info-modal > .modal-body > p{
+    margin: 5px;
+    padding: 0;
+    font-size: 17px;
+}
+
+hr.solid {
+    border-top: 2px solid #61dafb;
+    width: 100%;
+  }

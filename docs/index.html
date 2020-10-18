@@ -8,7 +8,10 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div id="title">My Library</div>
+        <div id="title">
+            <div>My Library</div>
+            <div id="info-button">&nbsp🛈</div>
+        </div>
         <section class="book-list">
 
             <!-- Example Book Element -->
@@ -32,6 +35,26 @@
             </article>
 
         </section>
+
+        <div class="modal" id="info-modal">
+            <div class="modal-header">
+                <div class="title">About My Library App</div>
+                <button data-modal-close class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>To add a book press the + card</p>
+                <p>Then enter in your book information in the popup window and press save to add it to your list </p>
+                <hr class="solid">
+                <p>To search for a book press the 🔎 card</p>
+                <p>Then enter in a book title or author and press the Search button to display the results </p>
+                <p>You can press the add book button to add a specific book</p>
+                <hr class="solid">
+                <p>You can edit or remove books through the buttons on the bottom of each book</p>
+                <hr class="solid">
+                <p>This application is not compatible with Internet Explorer</p>
+
+            </div>
+        </div>
 
         <div class="modal" id="modal">
             <div class="modal-header">
