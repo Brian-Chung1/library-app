@@ -10,21 +10,9 @@
     <body>
         <div id="title">
             <div>My Library</div>
-            <div id="info-button">&nbsp🛈</div>
+            <div data-modal-target="#info-modal" id="info-button">&nbsp🛈</div>
         </div>
         <section class="book-list">
-
-            <!-- Example Book Element -->
-            <!-- <article class="book">
-                <header class="card-header">
-                    <h1 class="book-title">Example Book</h1>
-                    <h2 id="author">By Author</h2>
-                    <h4 id="page-count">Page Count: </h4>
-                    <h4 id="read-status">Finished Reading </h4>
-                    <img src="images/trash-alt-solid.png" class="delete" alt="delete icon">
-                    <img src="images/edit-regular.png" class="edit" data-modal-target="#modal" alt="edit icon">
-                </header>
-            </article> -->
 
             <article data-modal-target="#modal" class="book" id="addbook">
                 <div id="plus">+</div>
@@ -100,6 +88,6 @@
 
 
 
-        <script src="app.js"></script>
+        <script async defer src="app.js"></script>
     </body>
 </html>

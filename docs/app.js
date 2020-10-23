@@ -276,7 +276,7 @@ function showAlert(message) {
     title.insertAdjacentElement('afterend', alertMsg);
 
     // Vanish in 3 seconds
-    setTimeout(() => document.querySelector('.alert').remove(), 3000);
+    setTimeout(() => document.querySelector('.alert').remove(), 2000);
   }
 
 
@@ -290,28 +290,45 @@ searchButton.addEventListener("click", (e) => {
     clearResults();
     const searchTerms = searchBar.value;
     if(searchTerms == "") return;
-    fetchAPI(searchTerms);
+    processData(searchTerms);
 });
 
-async function fetchAPI(searchTerms) {
-    let apikey = "AIzaSyDTjHJ2lawtrtUHAENuwQ6QSszXe7Di1Os";
-    let response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&maxResults=15`);
-    if(!response.ok) {
-        let container = document.querySelector(".search-result");
-        let errorAlert = document.createElement("div");
-        errorAlert.classList.add("error");
-        errorAlert.textContent = `Error ${response.status}: Could not find results or Faulty Internet`;
-        container.appendChild(errorAlert);
+async function fetchData(searchTerms) {
+    try {
+        let apikey = "AIzaSyDTjHJ2lawtrtUHAENuwQ6QSszXe7Di1Os"; 
+        let url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&maxResults=15`
+        let response = await fetch(url)
+        let data = await response.json();
+        if(!response.ok || data.items == undefined) { 
+            displayError(response.status);
+            throw err 
+        }
+        else return data;
+    } catch(err) {
+        return null;
     }
-    let data = await response.json();
+}
 
+async function processData(searchTerms) {
+    let data = await fetchData(searchTerms);
+    if(data == null) return;
     for(let i = 0; i < data.items.length; i++) {
         if(data.items[i].volumeInfo.title.length > 110) continue;
         let author = (data.items[i].volumeInfo.authors == void(0) || typeof data.items[i].volumeInfo.authors == 'undefined') ? "Unknown" : data.items[i].volumeInfo.authors[0];
         let pages = (data.items[i].volumeInfo.pageCount == void(0) || typeof data.items[i].volumeInfo.pageCount == 'undefined') ? "" : data.items[i].volumeInfo.pageCount;
-        createSearchResultElements(data.items[i].volumeInfo.title, author, data.items[i].volumeInfo.pageCount)
+        createSearchResultElements(data.items[i].volumeInfo.title, author, pages);
     }
 }
+
+function displayError(status) {
+    let container = document.querySelector(".search-result");
+    let errorAlert = document.createElement("div");
+    errorAlert.classList.add("error");
+    errorAlert.textContent = `Error ${status}: Could not find results or Network Error`;
+    container.appendChild(errorAlert);
+}
+
+
 
 
 function clearResults() {
@@ -363,11 +380,11 @@ function createSearchResultElements(title, author, pages) {
 function displayInfo() {
     let info = document.querySelector("#info-modal");
     info.classList.add("active");
-    let infoButton = document.querySelector("#info-button");
-    infoButton.addEventListener("click", () => {
-        info.classList.add("active");
-    })
+    overlay.classList.add("active");
+    let infoButton = document.getElementById("info-button");
 }
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
     displayBooks();
