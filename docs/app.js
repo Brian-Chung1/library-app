@@ -381,7 +381,6 @@ function displayInfo() {
     let info = document.querySelector("#info-modal");
     info.classList.add("active");
     overlay.classList.add("active");
-    let infoButton = document.getElementById("info-button");
 }
 
 
