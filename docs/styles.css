@@ -1,431 +1,427 @@
 /* Scrollbar CSS only works on Chrome*/
-.book-list::-webkit-scrollbar { 
-    width: 10px;
-    height: 10px;
+.book-list::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
 .book-list::-webkit-scrollbar-thumb {
-    background: #201c29;
-    border-radius: 10px;
-    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+  background: #201c29;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.25),
+    inset -2px -2px 2px rgba(0, 0, 0, 0.25);
 }
 
 .book-list::-webkit-scrollbar-track {
-    background: linear-gradient(90deg, #201c29, #201c29 1px, #17141d 0, #17141d);
+  background: linear-gradient(90deg, #201c29, #201c29 1px, #17141d 0, #17141d);
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    background-color: #282c34;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+  padding: 0;
+  margin: 0;
+  background-color: #282c34;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #61dafb;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 50px;
-    margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #61dafb;
+  font-family: "Montserrat", sans-serif;
+  font-size: 50px;
+  margin-top: 40px;
 }
 
 #title > #info-button {
-    font-size: 25px;
-    cursor: pointer;
+  font-size: 25px;
+  cursor: pointer;
 }
 
 .book-title {
-    font-size: 23px;
-    word-break: break-word;
-    overflow-wrap: break-word;
+  font-size: 23px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .book-list {
-    display: flex;
-    padding: 3rem;
-    justify-content: center;
-    /* overflow-x: scroll; */ /* <-- This creates a useable scrollbar - must make container full window size so that scrollbar is at bottom */ 
-
+  display: flex;
+  padding: 3rem;
+  justify-content: center;
+  /* overflow-x: scroll; */ /* <-- This creates a useable scrollbar - must make container full window size so that scrollbar is at bottom */
 }
 
 .book {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    height: 350px;
-    width: 250px;
-    min-width: 200px;
-    padding: 1.5rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 350px;
+  width: 250px;
+  min-width: 200px;
+  padding: 1.5rem;
 
-    border-radius: 16px;
-    background: #282c34;
-    box-shadow: -1rem 0 3rem #000;
+  border-radius: 16px;
+  background: #282c34;
+  box-shadow: -1rem 0 3rem #000;
 
-    transition: .2s;
+  transition: 0.2s;
 }
 
 .book:hover {
-    transform: translateY(-1rem);
+  transform: translateY(-1rem);
 }
 
-.book:hover~.book {
-    transform: translateX(130px);
+.book:hover ~ .book {
+  transform: translateX(130px);
 }
 
 .book:not(:first-child) {
-    margin-left: -130px;
+  margin-left: -130px;
 }
 
 .card-header h2:hover {
-    background: linear-gradient(90deg,#ff8a00,#e52e71);
-    text-shadow: none;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;    
+  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  text-shadow: none;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 #addbook {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #plus {
-    font-size: 70px;
-    font-weight: bold;
+  font-size: 70px;
+  font-weight: bold;
 }
 
-
-
 #addbook {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .modal {
-    position: fixed;  /* if user scrolls up and down modal is going to be centered */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: 200ms ease-in-out;
-    border: 1px solid black;
-    border-radius: 10px;
-    z-index: 10;
-    background-color: #282c34;
-    width: 470px;
-    max-width: 80%;
-    height: 410px;
+  position: fixed; /* if user scrolls up and down modal is going to be centered */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: #282c34;
+  width: 525px;
+  max-width: 80%;
+  height: 452px;
 }
 
 .modal.active {
-    transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .modal-header {
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid black;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
 }
 
 .modal-header .title {
-    font-size: 1.25rem;
-    font-weight: bold;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
 .modal-header .close-btn {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.25 rem;
-    font-weight: bold;
-    color: white;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25 rem;
+  font-weight: bold;
+  color: white;
 }
 
 .close-btn {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .modal-body {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding: 13px 20px;
 }
 
 #overlay {
-    position: fixed;
-    opacity: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    pointer-events: none;
-    transition: 200ms ease-in-out;
-
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  transition: 200ms ease-in-out;
 }
 
 #overlay.active {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .save {
-    display:flex;
-    cursor: pointer;
-    border: 1px solid white;
-    width: 90px;
-    border-radius: 5px;
-    height: 26px;
-    font-size: 17px;
-    justify-content: center;
-    align-content: center;
-    align-self: center;
-    align-items: center;
-    position: relative;
-    bottom: 38px;
-    cursor: pointer;
+  display: flex;
+  cursor: pointer;
+  border: 2px solid white;
+  width: 115px;
+  border-radius: 5px;
+  height: 31px;
+  font-size: 17px;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  position: relative;
+  bottom: 53px;
+  cursor: pointer;
+  font: inherit;
+  background: none;
+  color: inherit;
 }
 
 label {
-    padding-bottom: 5px;
-    padding-top: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 .dropdown {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 100;
-    justify-content: center;
-    align-items: center;
-
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
 }
 
 #select {
-    text-decoration: none;
-    border: none;
-    height: 29px;
-    margin-bottom: 0px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  height: 35px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-size: 17px;
+  border-radius: 6px;
 }
 
 .dropdown div {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    color: #282c34;
-    background-color: #DCDCDC;
-    width: 440px;
-    height: 27px;
-    border-radius: 5px;
-    transition: all 0.4s ease;
-    
-    box-shadow: 0 8px 6px -6px #ffffff42;
-    border-bottom: 1px solid #80808036;
+  position: static;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  color: #282c34;
+  background-color: #dcdcdc;
+  width: 485px;
+  height: 31px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
 
+  box-shadow: 0 8px 6px -6px #ffffff42;
+  border-bottom: 1px solid #80808036;
 }
-
 
 #select:hover {
-    background-color: #D3D3D3;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  background-color: #d3d3d3;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.dropdown div:hover, .dropdown button:hover {
-    font-weight: bold;
-    font-size: 17px;
-    background-color: #C8C8C8;
-    cursor: pointer;
-    transition: all 0.1s ease-in-out;
+.dropdown div:hover,
+.dropdown button:hover {
+  font-weight: bold;
+  background-color: #c8c8c8;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
-
 
 .delete {
-    position: absolute;
-    width: 17px;
-    height: 22px;
-    bottom: 20px;
-    left: 63px;
-
+  position: absolute;
+  width: 17px;
+  height: 22px;
+  bottom: 20px;
+  left: 63px;
 }
 
 .edit {
-    position: absolute;
-    width: 26px;
-    height: 23px;
-    bottom: 20px
+  position: absolute;
+  width: 26px;
+  height: 23px;
+  bottom: 20px;
 }
 
-.delete:hover, .edit:hover {
-    cursor: pointer;
-    opacity: 0.5;
-    transform: scale(1.1);
-    transition: 0.1s ease-in;
-
+.delete:hover,
+.edit:hover {
+  cursor: pointer;
+  opacity: 0.5;
+  transform: scale(1.1);
+  transition: 0.1s ease-in;
 }
-
 
 .hidden {
-    pointer-events: none;
-    opacity: 0;
-    transition: 0.1s ease-in;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.1s ease-in;
 }
 
-.zindex { 
-    z-index: 100;
+.zindex {
+  z-index: 100;
+}
+
+input:required {
+  box-shadow: none;
+}
+input:invalid {
+  box-shadow: none;
 }
 
 .alert {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    left: 42.8%;
-    width: 280px;
-    height: 40px;
-    color: white;
-    font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 42.8%;
+  width: 280px;
+  height: 40px;
+  color: white;
+  font-size: 20px;
+  bottom: 500px;
 }
 
 input {
-    height: 23px;
-    border-radius: 6px;
-    margin-bottom: 7px;
+  height: 29px;
+  border-radius: 6px;
+  margin-bottom: 7px;
 }
 
 #searchbook {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 #search {
-    font-size: 70px;
-    font-weight: bold;
+  font-size: 70px;
+  font-weight: bold;
 }
 
 #search-button {
-    text-decoration: none;
-    border: none;
-    height: 29px;
-    margin-bottom: 0px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 6px;
-    width: 134px;
-    
+  text-decoration: none;
+  border: none;
+  height: 35px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 6px;
+  width: 134px;
 }
 
-#search-button:hover, #add-search:hover {
-    background-color: #C8C8C8;
-    cursor: pointer;
-    transition: all 0.1s ease-in-out;
+#search-button:hover,
+#add-search:hover {
+  background-color: #c8c8c8;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 
 .search-modal-body {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    padding: 10px 15px;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding: 10px 15px;
+  justify-content: center;
 }
 
 .search-modal-container {
-    position: fixed;  /* if user scrolls up and down modal is going to be centered */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: 200ms ease-in-out;
-    border: 1px solid black;
-    border-radius: 10px;
-    z-index: 10;
-    background-color: #282c34;
-    width: 600px;
-    height: 600px;
+  position: fixed; /* if user scrolls up and down modal is going to be centered */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: #282c34;
+  width: 600px;
+  height: 600px;
 }
 
 .add-search {
-    border: none;
-    height: 29px;
-    cursor: pointer;
-    border-radius: 6px;
-    width: 100px;
-    font-family: 'Montserrat', sans-serif;
-    position: relative;
-    grid-column-start: 3;
-    grid-row-start: 1;
-    grid-row-end: 4;
-    
+  border: none;
+  height: 29px;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 100px;
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
 }
 
 .search-result {
-    border: 1px solid white;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    overflow: scroll;
-    overflow-x: hidden;
-    height: 435px;
+  border: 1px solid white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 435px;
 }
 
 input[name="searchbar"] {
-    width: 423px;
+  width: 423px;
 }
 
 .result-book {
-    display: grid;
-    grid-template-columns: 70px 1fr 100px;
-    grid-template-rows: repeat(3, 1fr);
-    justify-items: left;
-    align-items: center;
-    border-bottom: 2px solid #61dafb;
-    padding: 10px;
+  display: grid;
+  grid-template-columns: 70px 1fr 100px;
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: left;
+  align-items: center;
+  border-bottom: 2px solid #61dafb;
+  padding: 10px;
 }
 
-
 .search-bar-container {
-    padding-bottom: 4px;
-    width: 570px;
-    
+  padding-bottom: 4px;
+  width: 570px;
 }
 
 .error {
-    color: red;
-    font-size: 25px;
+  color: red;
+  font-size: 25px;
 }
 
 #info-modal {
-    width: 700px;
+  width: 700px;
 }
 
-#info-modal > .modal-body > p{
-    margin: 5px;
-    padding: 0;
-    font-size: 17px;
+#info-modal > .modal-body > p {
+  margin: 5px;
+  padding: 0;
+  font-size: 17px;
 }
 
 hr.solid {
-    border-top: 2px solid #61dafb;
-    width: 100%;
-  }
+  border-top: 2px solid #61dafb;
+  width: 100%;
+}
