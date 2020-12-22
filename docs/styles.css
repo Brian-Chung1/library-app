@@ -360,7 +360,7 @@ input {
   z-index: 10;
   background-color: #282c34;
   width: 600px;
-  height: 600px;
+  height: 640px;
 }
 
 .add-search {
@@ -424,4 +424,35 @@ input[name="searchbar"] {
 hr.solid {
   border-top: 2px solid #61dafb;
   width: 100%;
+}
+
+.search-navigation {
+  display: flex;
+  justify-content: space-evenly;
+  height: 50px;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.page-item {
+  height: 35px;
+  width: 134px;
+  background-color: #f0f0f0;
+  color: black;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.page-item:hover {
+  background-color: #c8c8c8;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }

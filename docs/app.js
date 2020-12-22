@@ -274,19 +274,25 @@ function showAlert(message) {
 
 const searchBar = document.querySelector("input[name='searchbar']");
 const searchButton = document.querySelector("#search-button");
+let currentIndex = 0;
+let currentSearchTerm = "";
 
 searchButton.addEventListener("click", (e) => {
   e.preventDefault();
   clearResults();
   const searchTerms = searchBar.value;
-  if (searchTerms == "") return;
+  if (searchTerms === "") return;
+  currentSearchTerm = searchTerms;
+  currentIndex = 0;
+  console.log(currentSearchTerm);
   processData(searchTerms);
 });
 
 async function fetchData(searchTerms) {
   try {
+    const max = 10;
     let apikey = "AIzaSyDTjHJ2lawtrtUHAENuwQ6QSszXe7Di1Os";
-    let url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&maxResults=15`;
+    let url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apikey}&startIndex=${currentIndex}&maxResults=${max}`;
     let response = await fetch(url);
     let data = await response.json();
     if (!response.ok || data.items == undefined) {
@@ -300,7 +306,7 @@ async function fetchData(searchTerms) {
 
 async function processData(searchTerms) {
   let data = await fetchData(searchTerms);
-  if (data == null) return;
+  if (data === null) return;
   for (let i = 0; i < data.items.length; i++) {
     if (data.items[i].volumeInfo.title.length > 110) continue;
     let author =
@@ -317,6 +323,38 @@ async function processData(searchTerms) {
   }
 }
 
+const paginationButtons = document.querySelectorAll(".page-item");
+const prevButton = paginationButtons[0];
+const nextButton = paginationButtons[1];
+
+prevButton.addEventListener("click", () => {
+  if (
+    currentIndex === 0 ||
+    document.querySelector(".search-result").textContent === ""
+  )
+    return;
+  const searchTerms = searchBar.value;
+  if (searchTerms === "") return;
+  clearResults();
+  currentIndex -= 10;
+  console.log(currentIndex);
+  processData(currentSearchTerm);
+});
+
+nextButton.addEventListener("click", () => {
+  if (
+    currentIndex === 30 ||
+    document.querySelector(".search-result").textContent === ""
+  )
+    return;
+  const searchTerms = searchBar.value;
+  if (searchTerms === "") return;
+  clearResults();
+  currentIndex += 10;
+  console.log(currentIndex);
+  processData(currentSearchTerm);
+});
+console.log(currentIndex);
 function displayError(status) {
   let container = document.querySelector(".search-result");
   let errorAlert = document.createElement("div");
