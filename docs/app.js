@@ -24,7 +24,25 @@ class Storage {
   static getLib() {
     let library;
     if (localStorage.getItem("library") === null) {
-      library = [];
+      const HarryPotter = new Book(
+        "Harry Potter and the Sorcerer's Stone",
+        "J.K. Rowling",
+        309,
+        "Finished Reading"
+      );
+      const MockingBird = new Book(
+        "To Kill a Mockingbird",
+        "Harper Lee",
+        281,
+        "Currently Reading"
+      );
+      const GreatGatsby = new Book(
+        "The Great Gatsby",
+        "F. Scott Fitzgerald",
+        218,
+        "Have Not Started Reading"
+      );
+      library = [HarryPotter, MockingBird, GreatGatsby];
     } else {
       library = JSON.parse(localStorage.getItem("library"));
     }
