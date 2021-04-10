@@ -24,7 +24,7 @@ Personal Library application where users can keep track of all their books. User
 
 ### Built With
 
-Project is built with Vanilla Javascript, HTML, CSS
+Project is built with Vanilla Javascript, HTML, CSS \
 Book Search is using [Google Books API](https://developers.google.com/books)
 
 ## Cloning the Repo
@@ -39,5 +39,5 @@ Book Search is using [Google Books API](https://developers.google.com/books)
 
 ## Contact
 
-Brian Chung - brian.chung.cs@gmail.com
+Brian Chung - brian.chung.cs@gmail.com \
 Project Link: https://brian-chung1.github.io/library-app/
